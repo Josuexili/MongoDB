@@ -1,0 +1,198 @@
+[
+  {
+    "nom": "Laura",
+    "cognom1": "Garcia",
+    "cognom2": "Pérez",
+    "dataEntrada": { "$date": "2025-11-15T09:00:00Z" },
+    "completa": true,
+    "observacions": "Tasca entregada correctament"
+  },
+  {
+    "nom": "Marc",
+    "cognom1": "López",
+    "cognom2": "Soler",
+    "dataEntrada": { "$date": "2025-11-16T10:15:00Z" },
+    "completa": false,
+    "observacions": "Falta adjuntar document"
+  },
+  {
+    "nom": "Anna",
+    "cognom1": "Vila",
+    "cognom2": "Costa",
+    "dataEntrada": { "$date": "2025-11-17T11:00:00Z" },
+    "completa": true,
+    "observacions": "Bona presentació"
+  },
+  {
+    "nom": "Jordi",
+    "cognom1": "Martí",
+    "cognom2": "Roca",
+    "dataEntrada": { "$date": "2025-11-18T12:30:00Z" },
+    "completa": false,
+    "observacions": ""
+  },
+  {
+    "nom": "Laura",
+    "cognom1": "Garcia",
+    "cognom2": "Pérez",
+    "dataEntrada": { "$date": "2025-11-18T15:45:00Z" },
+    "completa": true,
+    "observacions": "Revisada pel professor"
+  },
+  {
+    "nom": "Marc",
+    "cognom1": "López",
+    "cognom2": "Soler",
+    "dataEntrada": { "$date": "2025-11-19T09:20:00Z" },
+    "completa": true,
+    "observacions": "Correccions aplicades"
+  },
+  {
+    "nom": "Anna",
+    "cognom1": "Vila",
+    "cognom2": "Costa",
+    "dataEntrada": { "$date": "2025-11-20T10:00:00Z" },
+    "completa": false,
+    "observacions": ""
+  },
+  {
+    "nom": "Jordi",
+    "cognom1": "Martí",
+    "cognom2": "Roca",
+    "dataEntrada": { "$date": "2025-11-21T11:10:00Z" },
+    "completa": true,
+    "observacions": "Tasca completada fora de termini"
+  },
+  {
+    "nom": "Laura",
+    "cognom1": "Garcia",
+    "cognom2": "Pérez",
+    "dataEntrada": { "$date": "2025-11-22T08:50:00Z" },
+    "completa": false,
+    "observacions": ""
+  },
+  {
+    "nom": "Marc",
+    "cognom1": "López",
+    "cognom2": "Soler",
+    "dataEntrada": { "$date": "2025-11-23T14:00:00Z" },
+    "completa": true,
+    "observacions": "Tasca validada"
+  },
+
+  {
+    "nom": "Anna",
+    "cognom1": "Vila",
+    "cognom2": "Costa",
+    "dataEntrada": { "$date": "2025-11-24T09:00:00Z" },
+    "completa": true,
+    "observacions": "Revisada"
+  },
+  {
+    "nom": "Jordi",
+    "cognom1": "Martí",
+    "cognom2": "Roca",
+    "dataEntrada": { "$date": "2025-11-25T10:30:00Z" },
+    "completa": false,
+    "observacions": ""
+  },
+  {
+    "nom": "Laura",
+    "cognom1": "Garcia",
+    "cognom2": "Pérez",
+    "dataEntrada": { "$date": "2025-11-26T12:00:00Z" },
+    "completa": true,
+    "observacions": "Bona organització"
+  },
+  {
+    "nom": "Marc",
+    "cognom1": "López",
+    "cognom2": "Soler",
+    "dataEntrada": { "$date": "2025-11-27T13:45:00Z" },
+    "completa": false,
+    "observacions": "Tasca incompleta"
+  },
+  {
+    "nom": "Anna",
+    "cognom1": "Vila",
+    "cognom2": "Costa",
+    "dataEntrada": { "$date": "2025-11-28T15:30:00Z" },
+    "completa": true,
+    "observacions": "Presentació clara"
+  },
+
+  {
+    "nom": "Jordi",
+    "cognom1": "Martí",
+    "cognom2": "Roca",
+    "dataEntrada": { "$date": "2025-11-29T09:10:00Z" },
+    "completa": true,
+    "observacions": "Revisada i acceptada"
+  },
+  {
+    "nom": "Laura",
+    "cognom1": "Garcia",
+    "cognom2": "Pérez",
+    "dataEntrada": { "$date": "2025-11-30T10:40:00Z" },
+    "completa": false,
+    "observacions": ""
+  },
+  {
+    "nom": "Marc",
+    "cognom1": "López",
+    "cognom2": "Soler",
+    "dataEntrada": { "$date": "2025-12-01T11:55:00Z" },
+    "completa": true,
+    "observacions": "Tasca excel·lent"
+  },
+  {
+    "nom": "Anna",
+    "cognom1": "Vila",
+    "cognom2": "Costa",
+    "dataEntrada": { "$date": "2025-12-02T13:20:00Z" },
+    "completa": false,
+    "observacions": ""
+  },
+  {
+    "nom": "Jordi",
+    "cognom1": "Martí",
+    "cognom2": "Roca",
+    "dataEntrada": { "$date": "2025-12-03T14:35:00Z" },
+    "completa": true,
+    "observacions": "Correccions pendents resoltes"
+  },
+
+  {
+    "nom": "Laura",
+    "cognom1": "Garcia",
+    "cognom2": "Pérez",
+    "dataEntrada": { "$date": "2025-12-04T09:00:00Z" },
+    "completa": true,
+    "observacions": "Tasca finalitzada"
+  },
+  {
+    "nom": "Marc",
+    "cognom1": "López",
+    "cognom2": "Soler",
+    "dataEntrada": { "$date": "2025-12-05T10:10:00Z" },
+    "completa": false,
+    "observacions": ""
+  },
+  {
+    "nom": "Anna",
+    "cognom1": "Vila",
+    "cognom2": "Costa",
+    "dataEntrada": { "$date": "2025-12-06T11:25:00Z" },
+    "completa": true,
+    "observacions": "Documentació completa"
+  },
+  {
+    "nom": "Jordi",
+    "cognom1": "Martí",
+    "cognom2": "Roca",
+    "dataEntrada": { "$date": "2025-12-07T12:40:00Z" },
+    "completa": false,
+    "observacions": ""
+  }
+]
+
