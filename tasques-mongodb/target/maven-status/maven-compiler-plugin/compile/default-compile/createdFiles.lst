@@ -1,3 +1,6 @@
+cat/institut/model/TasquesModel.class
 cat/institut/App.class
-cat/institut/TasquesCrud.class
-cat/institut/MongoClientConnectionExample.class
+cat/institut/controller/Main.class
+cat/institut/model/Entrada.class
+cat/institut/view/View.class
+cat/institut/model/ConnectionManager.class
