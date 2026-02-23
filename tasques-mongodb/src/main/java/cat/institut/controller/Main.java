@@ -3,12 +3,6 @@ package cat.institut.controller;
 import cat.institut.model.Entrada;
 import cat.institut.model.TasquesModel;
 import cat.institut.view.View;
-import org.bson.Document;
-import org.bson.types.ObjectId;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 public class Main {
 
@@ -27,91 +21,64 @@ public class Main {
                 case 1 -> { // Afegir tasca
                     Entrada nova = view.demanarDadesTasca();
                     if (nova != null) {
-                        model.inserirTasca(
+
+                        String resposta = model.inserirTasca(
                                 nova.getNom(),
                                 nova.getCognom1(),
                                 nova.getCognom2(),
                                 nova.getDataEntrada(),
                                 nova.isCompleta(),
-                                nova.getObservacions());
-                        view.mostrarMissatge("Tasca afegida correctament.");
+                                nova.getObservacions()).join(); // Esperem el CompletableFuture
+
+                        System.out.println("Resposta servidor:");
+                        System.out.println(resposta);
                     }
                 }
 
                 case 2 -> { // Eliminar tasca
-                    List<Entrada> tasques = obtenirLlista(model);
-                    view.mostrarTasques(tasques);
+                    System.out.print("Introdueix ID de la tasca a eliminar: ");
+                    String id = view.demanarText("");
 
-                    if (!tasques.isEmpty()) {
-                        ObjectId id = view.seleccionarTasca(tasques);
-                        model.deleteTasca(id);
-                        view.mostrarMissatge("Tasca eliminada.");
-                    }
+                    String resposta = model.deleteTasca(id).join();
+
+                    System.out.println("Resposta servidor:");
+                    System.out.println(resposta);
                 }
 
                 case 3 -> { // Modificar tasca
-                    List<Entrada> tasques = obtenirLlista(model);
-                    view.mostrarTasques(tasques);
+                    System.out.print("Introdueix ID de la tasca a modificar: ");
+                    String id = view.demanarText("");
 
-                    if (!tasques.isEmpty()) {
-                        ObjectId id = view.seleccionarTasca(tasques);
-                        Entrada nova = view.demanarDadesTasca();
+                    Entrada nova = view.demanarDadesTasca();
 
-                        if (nova != null) {
-                            model.updateTasca(
-                                    id,
-                                    nova.getNom(),
-                                    nova.getCognom1(),
-                                    nova.getCognom2(),
-                                    nova.getDataEntrada(),
-                                    nova.isCompleta(),
-                                    nova.getObservacions());
-                            view.mostrarMissatge("Tasca modificada.");
-                        }
+                    if (nova != null) {
+
+                        String resposta = model.updateTasca(
+                                id,
+                                nova.getNom(),
+                                nova.getCognom1(),
+                                nova.getCognom2(),
+                                nova.getDataEntrada(),
+                                nova.isCompleta(),
+                                nova.getObservacions()).join();
+
+                        System.out.println("Resposta servidor:");
+                        System.out.println(resposta);
                     }
                 }
 
                 case 4 -> { // Llistar totes
-                    view.mostrarTasques(obtenirLlista(model));
+                    String resposta = model.getAllTasques().join();
+
+                    System.out.println("Tasques del servidor:");
+                    System.out.println(resposta);
                 }
 
-                case 5 -> { // Llistar entre dates
-                    Date inici = view.demanarData("Data inici");
-                    Date fi = view.demanarData("Data fi");
+                case 0 -> System.out.println("Sortint...");
 
-                    if (inici != null && fi != null) {
-                        view.mostrarTasques(obtenirLlista(model.getTasquesEntreDates(inici, fi)));
-                    }
-                }
-
-                case 6 -> { // Cercar per nom
-                    String nom = view.demanarText("Nom a cercar: ");
-                    view.mostrarTasques(obtenirLlista(model.getTasquesByNom(nom)));
-                }
-
-                case 0 -> view.mostrarMissatge("Sortint de l'aplicació...");
-
-                default -> view.mostrarMissatge("Opció no vàlida.");
+                default -> System.out.println("Opció no vàlida.");
             }
 
         } while (opcio != 0);
-    }
-
-    /**
-     * Converteix un FindIterable<Document> a List<Entrada>.
-     */
-    private static List<Entrada> obtenirLlista(Iterable<Document> documents) {
-        List<Entrada> llista = new ArrayList<>();
-        for (Document d : documents) {
-            llista.add(new Entrada(d));
-        }
-        return llista;
-    }
-
-    /**
-     * Sobrecàrrega per obtenir totes les tasques.
-     */
-    private static List<Entrada> obtenirLlista(TasquesModel model) {
-        return obtenirLlista(model.getAllTasques());
     }
 }

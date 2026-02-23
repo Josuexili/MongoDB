@@ -1,6 +1,4 @@
-/Users/josuegonzalezsantacreu/Documents/GitHub/MongoDB/tasques-mongodb/src/main/java/cat/institut/App.java
 /Users/josuegonzalezsantacreu/Documents/GitHub/MongoDB/tasques-mongodb/src/main/java/cat/institut/controller/Main.java
-/Users/josuegonzalezsantacreu/Documents/GitHub/MongoDB/tasques-mongodb/src/main/java/cat/institut/model/ConnectionManager.java
 /Users/josuegonzalezsantacreu/Documents/GitHub/MongoDB/tasques-mongodb/src/main/java/cat/institut/model/Entrada.java
 /Users/josuegonzalezsantacreu/Documents/GitHub/MongoDB/tasques-mongodb/src/main/java/cat/institut/model/TasquesModel.java
 /Users/josuegonzalezsantacreu/Documents/GitHub/MongoDB/tasques-mongodb/src/main/java/cat/institut/view/View.java

@@ -1,66 +1,84 @@
 package cat.institut.model;
 
-import com.mongodb.client.FindIterable;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.model.Filters;
-import com.mongodb.client.model.Updates;
-import org.bson.Document;
-import org.bson.types.ObjectId;
-
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.Date;
+import java.util.concurrent.CompletableFuture;
 
 public class TasquesModel {
 
-    private final MongoCollection<Document> collection;
+    private final HttpClient client;
 
-    /**
-     * Constructor del model.
-     * Obté la connexió a la BBDD a través del ConnectionManager.
-     */
+    // IMPORTANT: amb /api
+    private final String BASE_URL = "https://m6-uf-3-api-1fax-inktpiu83-josues-projects-de45d7d2.vercel.app/api";
+
     public TasquesModel() {
-        MongoDatabase database = ConnectionManager.getDatabase();
-        collection = database.getCollection("entrades");
+        client = HttpClient.newHttpClient();
     }
 
     /**
-     * Inserir una nova tasca a la col·lecció.
+     * Crear una nova tasca (POST)
      */
-    public void inserirTasca(String nom,
+    public CompletableFuture<String> inserirTasca(String nom,
             String cognom1,
             String cognom2,
             Date dataEntrada,
             boolean completa,
             String observacions) {
 
-        Document tasca = new Document("nom", nom)
-                .append("cognom1", cognom1)
-                .append("cognom2", cognom2)
-                .append("dataEntrada", dataEntrada)
-                .append("completa", completa)
-                .append("observacions", observacions);
+        String json = String.format(
+                "{\"nom\":\"%s\",\"cognom1\":\"%s\",\"cognom2\":\"%s\",\"dataEntrada\":\"%s\",\"observacions\":\"%s\",\"completa\":%b}",
+                nom,
+                cognom1,
+                cognom2,
+                dataEntrada.toInstant().toString(),
+                observacions,
+                completa);
 
-        collection.insertOne(tasca);
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(BASE_URL + "/tasques"))
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(json))
+                .build();
+
+        return client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                .thenApply(HttpResponse::body);
     }
 
     /**
-     * Retorna totes les tasques.
+     * Obtenir totes les tasques (GET)
      */
-    public FindIterable<Document> getAllTasques() {
-        return collection.find();
+    public CompletableFuture<String> getAllTasques() {
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(BASE_URL + "/tasques"))
+                .GET()
+                .build();
+
+        return client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                .thenApply(HttpResponse::body);
     }
 
     /**
-     * Elimina una tasca a partir del seu ObjectId.
+     * Eliminar tasca (DELETE)
      */
-    public void deleteTasca(ObjectId id) {
-        collection.deleteOne(Filters.eq("_id", id));
+    public CompletableFuture<String> deleteTasca(String id) {
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(BASE_URL + "/tasques/" + id))
+                .DELETE()
+                .build();
+
+        return client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                .thenApply(HttpResponse::body);
     }
 
     /**
-     * Actualitza una tasca existent.
+     * Actualitzar tasca (PATCH)
      */
-    public void updateTasca(ObjectId id,
+    public CompletableFuture<String> updateTasca(String id,
             String nom,
             String cognom1,
             String cognom2,
@@ -68,32 +86,22 @@ public class TasquesModel {
             boolean completa,
             String observacions) {
 
-        collection.updateOne(
-                Filters.eq("_id", id),
-                Updates.combine(
-                        Updates.set("nom", nom),
-                        Updates.set("cognom1", cognom1),
-                        Updates.set("cognom2", cognom2),
-                        Updates.set("dataEntrada", dataEntrada),
-                        Updates.set("completa", completa),
-                        Updates.set("observacions", observacions)));
-    }
+        String json = String.format(
+                "{\"nom\":\"%s\",\"cognom1\":\"%s\",\"cognom2\":\"%s\",\"dataEntrada\":\"%s\",\"observacions\":\"%s\",\"completa\":%b}",
+                nom,
+                cognom1,
+                cognom2,
+                dataEntrada.toInstant().toString(),
+                observacions,
+                completa);
 
-    /**
-     * Retorna les tasques entre dues dates.
-     */
-    public FindIterable<Document> getTasquesEntreDates(Date dataInici, Date dataFi) {
-        return collection.find(
-                Filters.and(
-                        Filters.gte("dataEntrada", dataInici),
-                        Filters.lte("dataEntrada", dataFi)));
-    }
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(BASE_URL + "/tasques/" + id))
+                .header("Content-Type", "application/json")
+                .method("PATCH", HttpRequest.BodyPublishers.ofString(json))
+                .build();
 
-    /**
-     * Cerca tasques pel nom de l'alumne (coincidència parcial).
-     */
-    public FindIterable<Document> getTasquesByNom(String nom) {
-        return collection.find(
-                Filters.regex("nom", nom, "i"));
+        return client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                .thenApply(HttpResponse::body);
     }
 }

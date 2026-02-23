@@ -1,7 +1,6 @@
 package cat.institut.view;
 
 import cat.institut.model.Entrada;
-import org.bson.types.ObjectId;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,13 +23,11 @@ public class View {
      * Mostra el menú principal i retorna l'opció escollida.
      */
     public int mostrarMenu() {
-        System.out.println("\n=== GESTIÓ DE TASQUES ===");
+        System.out.println("\n=== GESTIÓ DE TASQUES (HTTP) ===");
         System.out.println("1. Afegir tasca");
-        System.out.println("2. Eliminar tasca");
-        System.out.println("3. Modificar tasca");
+        System.out.println("2. Eliminar tasca (per ID)");
+        System.out.println("3. Modificar tasca (per ID)");
         System.out.println("4. Llistar totes les tasques");
-        System.out.println("5. Llistar tasques entre dates");
-        System.out.println("6. Cercar tasques per nom");
         System.out.println("0. Sortir");
         System.out.print("Opció: ");
 
@@ -69,44 +66,22 @@ public class View {
     }
 
     /**
-     * Mostra una llista de tasques numerada.
+     * Mostra una llista de tasques.
+     * (Només s'utilitzarà si després parses el JSON)
      */
     public void mostrarTasques(List<Entrada> tasques) {
-        if (tasques.isEmpty()) {
+        if (tasques == null || tasques.isEmpty()) {
             System.out.println("No hi ha tasques.");
             return;
         }
 
-        for (int i = 0; i < tasques.size(); i++) {
-            System.out.println(i + " - " + tasques.get(i));
+        for (Entrada e : tasques) {
+            System.out.println(e);
         }
     }
 
     /**
-     * Demana a l'usuari que seleccioni una tasca.
-     */
-    public ObjectId seleccionarTasca(List<Entrada> tasques) {
-        System.out.print("Selecciona el número de la tasca: ");
-        int index = Integer.parseInt(scanner.nextLine());
-
-        return tasques.get(index).getId();
-    }
-
-    /**
-     * Demana una data a l'usuari.
-     */
-    public Date demanarData(String missatge) {
-        try {
-            System.out.print(missatge + " (yyyy-MM-dd): ");
-            return dateFormat.parse(scanner.nextLine());
-        } catch (ParseException e) {
-            System.out.println("Format de data incorrecte.");
-            return null;
-        }
-    }
-
-    /**
-     * Demana un text (per filtres).
+     * Demana un text (per exemple ID).
      */
     public String demanarText(String missatge) {
         System.out.print(missatge);

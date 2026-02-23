@@ -6,7 +6,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>cat.institut</groupId>
-  <artifactId>tasques-mongodb</artifactId>
+  <artifactId>tasques-http-client</artifactId>
   <version>1.0-SNAPSHOT</version>
 
   <properties>
@@ -14,12 +14,17 @@
     <maven.compiler.target>17</maven.compiler.target>
   </properties>
 
-  <dependencies>
-    <dependency>
-      <groupId>org.mongodb</groupId>
-      <artifactId>mongodb-driver-sync</artifactId>
-      <version>4.11.1</version>
-    </dependency>
-  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>3.1.0</version>
+        <configuration>
+          <mainClass>cat.institut.controller.Main</mainClass>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 
 </project>

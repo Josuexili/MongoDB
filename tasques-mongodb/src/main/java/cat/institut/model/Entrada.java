@@ -1,13 +1,10 @@
 package cat.institut.model;
 
-import org.bson.Document;
-import org.bson.types.ObjectId;
-
 import java.util.Date;
 
 public class Entrada {
 
-    private ObjectId id;
+    private String _id;
     private String nom;
     private String cognom1;
     private String cognom2;
@@ -16,7 +13,13 @@ public class Entrada {
     private String observacions;
 
     /**
-     * Constructor per crear una nova Entrada (sense id).
+     * Constructor buit necessari per JSON.
+     */
+    public Entrada() {
+    }
+
+    /**
+     * Constructor manual.
      */
     public Entrada(String nom,
             String cognom1,
@@ -33,42 +36,10 @@ public class Entrada {
         this.observacions = observacions;
     }
 
-    /**
-     * Constructor per crear una Entrada a partir d'un Document de MongoDB.
-     */
-    public Entrada(Document doc) {
-        this.id = doc.getObjectId("_id");
-        this.nom = doc.getString("nom");
-        this.cognom1 = doc.getString("cognom1");
-        this.cognom2 = doc.getString("cognom2");
-        this.dataEntrada = doc.getDate("dataEntrada");
-        this.completa = doc.getBoolean("completa", false);
-        this.observacions = doc.getString("observacions");
-    }
-
-    /**
-     * Converteix l'objecte Entrada a un Document MongoDB.
-     */
-    public Document toDocument() {
-        Document doc = new Document()
-                .append("nom", nom)
-                .append("cognom1", cognom1)
-                .append("cognom2", cognom2)
-                .append("dataEntrada", dataEntrada)
-                .append("completa", completa)
-                .append("observacions", observacions);
-
-        if (id != null) {
-            doc.append("_id", id);
-        }
-
-        return doc;
-    }
-
     // GETTERS
 
-    public ObjectId getId() {
-        return id;
+    public String getId() {
+        return _id;
     }
 
     public String getNom() {
@@ -97,6 +68,10 @@ public class Entrada {
 
     // SETTERS
 
+    public void setId(String id) {
+        this._id = id;
+    }
+
     public void setNom(String nom) {
         this.nom = nom;
     }
@@ -123,7 +98,7 @@ public class Entrada {
 
     @Override
     public String toString() {
-        return "ID: " + id +
+        return "ID: " + _id +
                 " | " + nom + " " + cognom1 +
                 " | Data: " + dataEntrada +
                 " | Completa: " + completa;

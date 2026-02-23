@@ -1,6 +1,4 @@
 cat/institut/model/TasquesModel.class
-cat/institut/App.class
 cat/institut/controller/Main.class
 cat/institut/model/Entrada.class
 cat/institut/view/View.class
-cat/institut/model/ConnectionManager.class
